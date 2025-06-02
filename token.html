@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>MyToken ($MYTK)</title>
+  <title>Seu Token</title>
   <style>
     body {
       font-family: Arial, sans-serif;
@@ -14,16 +14,87 @@
     h1 { font-size: 3em; }
     img { width: 200px; margin-top: 20px; }
     a { color: #00ffcc; }
+    html, body, #vanta-bg {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100vh;
+      overflow: hidden;
+    }
+    .conteudo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: white;
+      text-align: center;
+      font-family: Arial, sans-serif;
+    }
+    .price-box {
+      background: #161b22;
+      padding: 10px 20px;
+      margin-top: 20px;
+      border-radius: 10px;
+      font-size: 1.3em;
+      display: inline-block;
+    }
   </style>
 </head>
 <body>
-  <h1>$EXPERIMENT TOKEN</h1>
-  <p>A community experiment in the blockchain Solana.</p>
-  <img src="https://raw.githubusercontent.com/seuusuario/seurepo/main/token.png" alt="Token Logo">
-  <p>Total Supply: 1,000,000,000</p>
-  <p>Total in liquidity pool: 900,000,000</p>
-  <p>Pool created in Raydium, make the profit and skirt, just like me!</p>
-  <p>Ver no Solana Explorer: <a href="https://solscan.io/token/DaCNBoyi9nCYSrNGMuzuPtt5tadpZeUqjEYkByzkHQJG" target="_blank">Clique aqui</a></p>
-  <p>Twitter oficial: <a href="https://twitter.com/seuusuario" target="_blank">@seuusuario</a></p>
+  <div id="vanta-bg"></div>
+
+  <div class="conteudo">
+    <h1>$EXPERIMENT TOKEN</h1>
+    <p>A community experiment in the blockchain Solana.</p>
+    <img src="https://raw.githubusercontent.com/seuusuario/seurepo/main/token.png" alt="Token Logo">
+    <p>Total Supply: 1,000,000,000</p>
+    <p>Total in liquidity pool: 900,000,000</p>
+    <p>Pool created in Raydium, make the profit and skirt, just like me!</p>
+    <p>Ver no Solana Explorer: <a href="https://solscan.io/token/DaCNBoyi9nCYSrNGMuzuPtt5tadpZeUqjEYkByzkHQJG" target="_blank">Clique aqui</a></p>
+    <p>Twitter oficial: <a href="https://twitter.com/seuusuario" target="_blank">@seuusuario</a></p>
+
+    <!-- Box de Preço -->
+    <div class="price-box">
+      Preço em SOL: <span id="price">Carregando...</span>
+    </div>
+  </div>
+
+  <!-- VANTA JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanta@latest/dist/vanta.net.min.js"></script>
+  <script>
+    VANTA.NET({
+      el: "#vanta-bg",
+      mouseControls: true,
+      touchControls: true,
+      minHeight: 200.00,
+      minWidth: 200.00,
+      scale: 1.00,
+      scaleMobile: 1.00,
+      color: 0xff0055,
+      backgroundColor: 0x0a0a0a
+    });
+  </script>
+
+  <!-- Script da Jupiter API -->
+  <script>
+    async function getTokenPrice() {
+      const mint = "DaCNBoyi9nCYSrNGMuzuPtt5tadpZeUqjEYkByzkHQJG"; // Substitua pelo seu mint se mudar
+      const url = `https://quote-api.jup.ag/v6/quote?inputMint=${mint}&outputMint=So11111111111111111111111111111111111111112&amount=1000000000`;
+
+      try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const outAmount = Number(data.outAmount) / 1e9; // de lamports pra SOL
+        document.getElementById("price").innerText = outAmount.toFixed(6) + " SOL";
+      } catch (error) {
+        document.getElementById("price").innerText = "Erro ao carregar preço";
+        console.error("Erro:", error);
+      }
+    }
+
+    getTokenPrice();
+    setInterval(getTokenPrice, 60000); // atualiza a cada 1 min
+  </script>
 </body>
 </html>
