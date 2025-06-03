@@ -19,7 +19,7 @@
       padding: 0;
       width: 100%;
       height: 100vh;
-      overflow: hidden;
+      overflow: auto;
     }
     .conteudo {
       position: absolute;
@@ -38,18 +38,37 @@
       font-size: 1.3em;
       display: inline-block;
     }
+    /* Estilo personalizado da barra de rolagem (Webkit browsers) */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111; /* fundo da barra */
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #00ffcc, #ff0055);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, #00ffaa, #ff3388);
+}
+
   </style>
 </head>
 <body>
   <div id="vanta-bg"></div>
 
   <div class="conteudo">
-    <h1>$EXPERIMENT TOKEN</h1>
+    <h1>$O-W-L</h1>
     <p>A community experiment in the blockchain Solana.</p>
     <img src="https://raw.githubusercontent.com/lembretebot/token-site/main/image.jpg" alt="Token Logo" width="200">
     <p>Total Supply: 1,000,000,000</p>
     <p>Total in liquidity pool: 900,000,000</p>
-    <p>1Pool created in Raydium, make the profit and skirt, just like me!</p>
+    <p>Pool created in Raydium, make the profit and skirt, just like me!</p>
     <p>View on Solana Explorer: <a href="https://solscan.io/token/DaCNBoyi9nCYSrNGMuzuPtt5tadpZeUqjEYkByzkHQJG" target="_blank">Clique aqui</a></p>
     <p>Creator's X: <a href="https://x.com/IAMCREATORCOIN" target="_blank">@IAMCREATORCOIN</a></p>
 
