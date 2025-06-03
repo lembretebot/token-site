@@ -99,7 +99,7 @@
         const volume = data.marketInfos[0].liquidityInSol;
         document.getElementById("volume").innerText = volume.toFixed(2) + " SOL";
       } else {
-        document.getElementById("volume").innerText = "Sem dados";
+        document.getElementById("volume").innerText = "No data";
       }
     } catch (error) {
       console.error("Erro:", error);
