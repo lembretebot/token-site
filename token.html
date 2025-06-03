@@ -55,9 +55,10 @@
 
     <!-- Box de Preço -->
     <div class="price-box">
-      Preço em SOL: <span id="price">Carregando...</span>
-    </div>
-  </div>
+  <p>💰 Preço em SOL: <span id="price">Carregando...</span></p>
+  <p>📈 Market Cap: <span id="marketcap">Carregando...</span></p>
+  <p>📊 Volume (24h): <span id="volume">Carregando...</span></p>
+</div>
 
   <!-- VANTA JS -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r121/three.min.js"></script>
@@ -78,23 +79,38 @@
 
   <!-- Script da Jupiter API -->
   <script>
-    async function getTokenPrice() {
-      const mint = "DaCNBoyi9nCYSrNGMuzuPtt5tadpZeUqjEYkByzkHQJG"; // Substitua pelo seu mint se mudar
-      const url = `https://quote-api.jup.ag/v6/quote?inputMint=${mint}&outputMint=So11111111111111111111111111111111111111112&amount=1000000000`;
+  async function getTokenData() {
+    const mint = "DaCNBoyi9nCYSrNGMuzuPtt5tadpZeUqjEYkByzkHQJG"; // Seu mint
+    const amount = 1_000_000_000; // 1 token com 9 casas decimais
+    const url = `https://quote-api.jup.ag/v6/quote?inputMint=${mint}&outputMint=So11111111111111111111111111111111111111112&amount=${amount}`;
 
-      try {
-        const response = await fetch(url);
-        const data = await response.json();
-        const outAmount = Number(data.outAmount) / 1e9; // de lamports pra SOL
-        document.getElementById("price").innerText = outAmount.toFixed(6) + " SOL";
-      } catch (error) {
-        document.getElementById("price").innerText = "Erro ao carregar preço";
-        console.error("Erro:", error);
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+
+      const priceSol = Number(data.outAmount) / 1e9;
+      const marketCap = priceSol * 1_000_000_000;
+
+      document.getElementById("price").innerText = priceSol.toFixed(6) + " SOL";
+      document.getElementById("marketcap").innerText = marketCap.toLocaleString("en-US", { maximumFractionDigits: 2 }) + " SOL";
+
+      // Se tiver info de mercado
+      if (data.marketInfos && data.marketInfos.length > 0 && data.marketInfos[0].liquidityInSol) {
+        const volume = data.marketInfos[0].liquidityInSol;
+        document.getElementById("volume").innerText = volume.toFixed(2) + " SOL";
+      } else {
+        document.getElementById("volume").innerText = "Sem dados";
       }
+    } catch (error) {
+      console.error("Erro:", error);
+      document.getElementById("price").innerText = "Erro";
+      document.getElementById("marketcap").innerText = "Erro";
+      document.getElementById("volume").innerText = "Erro";
     }
+  }
 
-    getTokenPrice();
-    setInterval(getTokenPrice, 60000); // atualiza a cada 1 min
-  </script>
+  getTokenData();
+  setInterval(getTokenData, 60000); // atualiza a cada 1 min
+</script>
 </body>
 </html>
