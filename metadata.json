@@ -1,0 +1,21 @@
+{
+  "name": "O-W-L",
+  "symbol": "OWL",
+  "description": "I make tokens while the world sleeps. The owl knows where the digital gold is.",
+  "image": "https://raw.githubusercontent.com/lembretebot/token-site/main/image.jpg",
+  "external_url": "https://lembretebot.github.io/token-site/token.html",
+  "attributes": [
+    {
+      "trait_type": "Type",
+      "value": "Meme Coin"
+    },
+    {
+      "trait_type": "Theme",
+      "value": "Owl"
+    },
+    {
+      "trait_type": "Vibe",
+      "value": "Nocturnal"
+    }
+  ]
+}
